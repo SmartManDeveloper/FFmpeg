@@ -340,6 +340,11 @@ static int rtp_open(URLContext *h, const char *uri, int flags)
         break;
     }
 
+    if ( s->rtp_hd == NULL || s->rtcp_hd == NULL ) {
+        av_log(s, AV_LOG_ERROR, "Failed to open RTP/RTCP handles for %s.\n", hostname);
+        goto fail;
+    }
+
     s->fec_hd = NULL;
     if (fec_protocol) {
         ff_url_join(buf, sizeof(buf), fec_protocol, NULL, hostname, rtp_port, NULL);
@@ -362,8 +367,10 @@ static int rtp_open(URLContext *h, const char *uri, int flags)
     return 0;
 
  fail:
-    ffurl_closep(&s->rtp_hd);
-    ffurl_closep(&s->rtcp_hd);
+    if (s->rtp_hd)
+        ffurl_closep(&s->rtp_hd);
+    if (s->rtcp_hd)
+        ffurl_closep(&s->rtcp_hd);
     ffurl_closep(&s->fec_hd);
     av_free(fec_protocol);
     av_dict_free(&fec_opts);
