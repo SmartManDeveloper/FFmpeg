@@ -1,0 +1,20 @@
+diff --git a/configure b/configure
+index 8569a60bf8..88dfb8cf5e 100755
+--- a/configure
++++ b/configure
+@@ -1721,7 +1721,6 @@ EXTERNAL_LIBRARY_GPL_LIST="
+     libdavs2
+     librubberband
+     libvidstab
+-    libx264
+     libx265
+     libxavs
+     libxavs2
+@@ -1756,6 +1755,7 @@ EXTERNAL_LIBRARY_LIST="
+     $EXTERNAL_LIBRARY_NONFREE_LIST
+     $EXTERNAL_LIBRARY_VERSION3_LIST
+     $EXTERNAL_LIBRARY_GPLV3_LIST
++    libx264
+     chromaprint
+     gcrypt
+     gnutls
